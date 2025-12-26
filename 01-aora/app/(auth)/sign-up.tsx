@@ -1,9 +1,11 @@
 import CustomButton from '@/components/CustomButton'
 import FormField from '@/components/FormField'
 import { images } from '@/constants'
-import { Link } from 'expo-router'
+import { useGlobalContext } from '@/context/GlobalProvider'
+import { createUser } from '@/lib/appwrite'
+import { Link, router } from 'expo-router'
 import React, { useState } from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { Alert, Image, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 interface FormData {
@@ -13,19 +15,38 @@ interface FormData {
 }
 
 const SignUp = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState<FormData>({
     username: "",
     email: "",
     password: "",
   })
+
+  const { setIsLoggedIn, setUser } = useGlobalContext();
+
   const handleChange = (key: string, value: string) => {
     setForm(prev => ({
       ...prev,
       [key]: value,
     }));
   };
-  const handleSubmit = () => {
-    console.log("submit")
+  const handleSubmit = async () => {
+    try {
+      if (!form.username || !form.email || !form.password) {
+        Alert.alert("Error", "Please fill in all the fields");
+        return
+      }
+      setIsSubmitting(true);
+      const result = await createUser(form.email, form.password, form.username);
+      setUser(result);
+      setIsLoggedIn(true);
+      router.replace('/home');
+    } catch (error: any) {
+      console.log(error);
+      Alert.alert("Error", error?.message);
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
