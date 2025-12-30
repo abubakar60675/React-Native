@@ -1,5 +1,10 @@
 import icons from "./icons";
 import images from "./images";
+export * from "./types";
+
+export const videoSource =
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+
 
 export { icons, images };
 

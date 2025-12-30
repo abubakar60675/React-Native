@@ -8,11 +8,13 @@ import { Image, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 const Index = () => {
   const { isLoading, isLoggedIn } = useGlobalContext();
-  if (!isLoading && !isLoggedIn) {
+
+  if (!isLoading && isLoggedIn) {
     return <>
       <Redirect href="/home" />
     </>
   }
+
   return (
     <SafeAreaView className='bg-primary h-full'>
       <ScrollView contentContainerStyle={{ height: "100%" }}>

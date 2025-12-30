@@ -37,7 +37,7 @@ const TabsLayout = () => {
             backgroundColor: "#161612",
             borderTopWidth: 1,
             borderTopColor: "#232533",
-            height: 84, 
+            height: 84,
           },
           tabBarIconStyle: {
             flex: 1,
@@ -52,17 +52,6 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon icon={icons.home} color={color} name="Home" focused={focused} />
-            ),
-          }}
-        />
-
-        <Tabs.Screen
-          name="bookmark"
-          options={{
-            title: 'Bookmark',
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon icon={icons.bookmark} color={color} name="Bookmark" focused={focused} />
             ),
           }}
         />
